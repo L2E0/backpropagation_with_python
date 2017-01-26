@@ -19,6 +19,8 @@ mnist_test.pyを見た方がわかり易いかも
 ####xor.py, mnist_test.py
 
 実装してみたもの  
+  
 
-
-
+汚いコードなのできれいにしていきましょう  
+##参考にしたサイト様
+<http://stmind.hatenablog.com/entry/2014/06/16/145524>
