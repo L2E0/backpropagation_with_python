@@ -55,7 +55,7 @@ set_time = time.time()
 # training
 print '---training---'
 print 'Num of training data : %d' %trdata_num
-mlp.fit(inputs, targets, learning_rate=0.05, epochs=10000)
+mlp.fit(inputs, targets, learning_rate=0.05, epochs=10)
 learning_time = time.time()
 
 # predict

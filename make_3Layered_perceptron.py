@@ -33,7 +33,7 @@ class make_perceptron(object):
         return (u * (1 - u))
 
 
-    def fit(self, inputs, targets, learning_rate=0.05, epochs=10000):
+    def fit(self, inputs, targets, learning_rate=0.05, epochs=1000):
         print 'number of learning : %d' %epochs
         print 'learning rate : %f' %learning_rate
         inputs = self.__add_bias(inputs, axis=1)
@@ -41,26 +41,31 @@ class make_perceptron(object):
 
         for loop_cnt in xrange(epochs):
             #randomise the order of the inputs
+            """
             p = np.random.randint(inputs.shape[0])
             xp = inputs[p]
             bkp = targets[p]
+            """
+            for p in xrange(inputs.shape[0]):
+                xp = inputs[p]
+                bkp = targets[p]
 
-            #forward phase
-            gjp = self.__sigmoid(np.dot(self.v, xp))
-            gjp = self.__add_bias(gjp)
-            gkp = self.__sigmoid(np.dot(self.w, gjp))
+                #forward phase
+                gjp = self.__sigmoid(np.dot(self.v, xp))
+                gjp = self.__add_bias(gjp)
+                gkp = self.__sigmoid(np.dot(self.w, gjp))
 
-            #backward phase(back prop)
-            eps2 = self.__sigmoid_deriv(gkp) * (gkp - bkp)
-            eps = self.__sigmoid_deriv(gjp) * np.dot(self.w.T, eps2)
+                #backward phase(back prop)
+                eps2 = self.__sigmoid_deriv(gkp) * (gkp - bkp)
+                eps = self.__sigmoid_deriv(gjp) * np.dot(self.w.T, eps2)
 
-            gjp = np.atleast_2d(gjp)
-            eps2 = np.atleast_2d(eps2)
-            self.w = self.w - learning_rate * np.dot(eps2.T, gjp)
+                gjp = np.atleast_2d(gjp)
+                eps2 = np.atleast_2d(eps2)
+                self.w = self.w - learning_rate * np.dot(eps2.T, gjp)
 
-            xp = np.atleast_2d(xp)
-            eps = np.atleast_2d(eps)
-            self.v = self.v - learning_rate * np.dot(eps.T, xp)[1:, :]
+                xp = np.atleast_2d(xp)
+                eps = np.atleast_2d(eps)
+                self.v = self.v - learning_rate * np.dot(eps.T, xp)[1:, :]
 
 
 
